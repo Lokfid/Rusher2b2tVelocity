@@ -26,38 +26,34 @@ public class VeloModule extends ToggleableModule {
 
 	@Subscribe
 	public void onPacketReceive(EventPacket.Receive e) {
-	if(mc.player != null) {
-			if (mc.player.isFallFlying()) {
-				return;
-			}
-		}
-
-			if (e.getPacket() instanceof ClientboundBundlePacket bundle) {
-				bundle.subPackets().forEach(bundlepacket -> {
-					if (bundlepacket instanceof ClientboundSetEntityMotionPacket pac) {
-						if (pac.getId() == mc.player.getId()) {
-							e.setCancelled(true);
-							grimTicks = 6;
-						}
+		if (e.getPacket() instanceof ClientboundBundlePacket bundle) {
+			bundle.subPackets().forEach(bundlepacket -> {
+				if (bundlepacket instanceof ClientboundSetEntityMotionPacket pac) {
+					if (pac.getId() == mc.player.getId()) {
+						e.setCancelled(true);
+						grimTicks = 6;
 					}
-				});
+				}
+				//I have no idea if it will work 100% of times
+				else if (bundlepacket instanceof ClientboundExplodePacket explosion) {
+					((IMixinClientboundExplodePacket) explosion).setKnockbackX(0);
+					((IMixinClientboundExplodePacket) explosion).setKnockbackY(0);
+					((IMixinClientboundExplodePacket) explosion).setKnockbackZ(0);
+					flag = true;
+				}
+			});
 
 		}
+
 		if (e.getPacket() instanceof ClientboundPingPacket && grimTicks > 0) {
 			e.setCancelled(true);
 			grimTicks--;
 		}
-		//I have no idea if it will work 100% of times
-		if (e.getPacket() instanceof ClientboundExplodePacket explosion) {
-			((IMixinClientboundExplodePacket) explosion).setKnockbackX(0);
-			((IMixinClientboundExplodePacket) explosion).setKnockbackY(0);
-			((IMixinClientboundExplodePacket) explosion).setKnockbackZ(0);
-			flag = true;
+	}
+
+		@Override
+		public void onEnable () {
+			grimTicks = 0;
 		}
 	}
 
-	@Override
-	public void onEnable() {
-		grimTicks = 0;
-	}
-}
