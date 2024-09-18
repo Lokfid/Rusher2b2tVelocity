@@ -25,6 +25,9 @@ public class VeloModule extends ToggleableModule {
 
 	@Subscribe
 	public void onPacketReceive(EventPacket.Receive e) {
+		if (mc.player != null && mc.player.isFallFlying()){
+			return;
+		}
 		if (e.getPacket() instanceof ClientboundBundlePacket bundle) {
 			bundle.subPackets().forEach(bundlepacket -> {
 				if (bundlepacket instanceof ClientboundSetEntityMotionPacket pac) {
