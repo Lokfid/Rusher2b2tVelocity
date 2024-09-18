@@ -17,7 +17,6 @@ import org.rusherhack.core.event.subscribe.Subscribe;
  */
 public class VeloModule extends ToggleableModule {
 	int grimTicks;
-	boolean flag;
 
 	public VeloModule() {
 		super("Velocity+", "Velocity for 2b2t", ModuleCategory.CLIENT);
@@ -39,7 +38,6 @@ public class VeloModule extends ToggleableModule {
 					((IMixinClientboundExplodePacket) explosion).setKnockbackX(0);
 					((IMixinClientboundExplodePacket) explosion).setKnockbackY(0);
 					((IMixinClientboundExplodePacket) explosion).setKnockbackZ(0);
-					flag = true;
 				}
 			});
 
