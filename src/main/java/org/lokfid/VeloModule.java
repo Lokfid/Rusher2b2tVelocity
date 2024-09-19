@@ -5,9 +5,11 @@ import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.network.protocol.common.ClientboundPingPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import org.rusherhack.client.api.accessors.packet.IMixinClientboundExplodePacket;
+import org.rusherhack.client.api.events.client.EventUpdate;
 import org.rusherhack.client.api.events.network.EventPacket;
 import org.rusherhack.client.api.feature.module.ModuleCategory;
 import org.rusherhack.client.api.feature.module.ToggleableModule;
+import org.rusherhack.core.event.stage.Stage;
 import org.rusherhack.core.event.subscribe.Subscribe;
 
 /**
@@ -16,7 +18,6 @@ import org.rusherhack.core.event.subscribe.Subscribe;
  * @author Lokfid
  */
 public class VeloModule extends ToggleableModule {
-	int grimTicks;
 
 	public VeloModule() {
 		super("Velocity+", "Velocity for 2b2t", ModuleCategory.CLIENT);
@@ -25,15 +26,12 @@ public class VeloModule extends ToggleableModule {
 
 	@Subscribe
 	public void onPacketReceive(EventPacket.Receive e) {
-		if (mc.player != null && mc.player.isFallFlying()){
-			return;
-		}
+		if (mc.player != null && mc.player.isFallFlying()) return;
 		if (e.getPacket() instanceof ClientboundBundlePacket bundle) {
 			bundle.subPackets().forEach(bundlepacket -> {
 				if (bundlepacket instanceof ClientboundSetEntityMotionPacket pac) {
 					if (pac.getId() == mc.player.getId()) {
 						e.setCancelled(true);
-						grimTicks = 6;
 					}
 				}
 				//I have no idea if it will work 100% of times
@@ -45,16 +43,18 @@ public class VeloModule extends ToggleableModule {
 			});
 
 		}
-
-		if (e.getPacket() instanceof ClientboundPingPacket && grimTicks > 0) {
+		//if that causes some bad shit its not my fault
+		//it works decently even without it
+	/*	if (e.getPacket() instanceof ClientboundPingPacket && grimTicks > 0) {
 			e.setCancelled(true);
 			grimTicks--;
 		}
+	 */
 	}
+
 
 		@Override
 		public void onEnable () {
-			grimTicks = 0;
 		}
 	}
 
