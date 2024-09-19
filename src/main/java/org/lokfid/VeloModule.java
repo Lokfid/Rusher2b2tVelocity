@@ -5,11 +5,9 @@ import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import net.minecraft.network.protocol.common.ClientboundPingPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import org.rusherhack.client.api.accessors.packet.IMixinClientboundExplodePacket;
-import org.rusherhack.client.api.events.client.EventUpdate;
 import org.rusherhack.client.api.events.network.EventPacket;
 import org.rusherhack.client.api.feature.module.ModuleCategory;
 import org.rusherhack.client.api.feature.module.ToggleableModule;
-import org.rusherhack.core.event.stage.Stage;
 import org.rusherhack.core.event.subscribe.Subscribe;
 
 /**
@@ -51,10 +49,4 @@ public class VeloModule extends ToggleableModule {
 		}
 	 */
 	}
-
-
-		@Override
-		public void onEnable () {
-		}
-	}
-
+}
