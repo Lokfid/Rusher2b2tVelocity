@@ -42,11 +42,11 @@ dependencies {
 	}
 
 	//rusherhack api
-	rusherhackApi "org.rusherhack:rusherhack-api:$minecraft_version-SNAPSHOT"
+	rusherhackApi "org.rusherhack:rusherhack-api:1.21-SNAPSHOT"
 }
 
 loom {
-	
+
 	//apply accesswidener from rusherhack-api
 	for (final def f in zipTree(this.project.configurations.rusherhackApi.singleFile)) {
 		if (f.name == "rusherhack.accesswidener") {
