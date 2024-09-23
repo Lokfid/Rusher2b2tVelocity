@@ -4,6 +4,7 @@ Velocity Plugin for rusherhack
 
 Please use [this](https://github.com/Lokfid/Rusher2b2tVelocity/tree/1.21) for 1.21
 
+p.s this has already been impelented by [historian](https://github.com/FluorideHistorian) in the latest rh+ release
 
 ### Usage
 just enable Velocity+ module in external tab
